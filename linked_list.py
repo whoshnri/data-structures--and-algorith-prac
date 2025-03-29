@@ -66,9 +66,6 @@ class LinkedList:
                 current = current.next_node
         return f"Item not found in list"
         
-
-
-
     def append(self, node):
         """
             adds a node to the node to the end of the list
@@ -88,6 +85,49 @@ class LinkedList:
         current = self.head
         self.head = node
         self.head.next_node = current 
+
+    def insert(self, node, position):
+        """
+            inserts a node at a specific position // the indexing for my linked list starts at 1
+        """
+
+        if position >= 1 and position <= self.size() + 1:
+
+            if position == 1:
+                self.prepend(node)
+
+            elif position == self.size() + 1:
+                self.append(node)
+
+            elif position == self.size():
+                current = self.head
+                count = 1
+                while count < position:
+                    count += 1
+                    prev = current
+                    current = current.next_node
+                prev.next_node = node
+                self.append(current)
+
+            else:
+                count = 1
+                current = self.head
+                prev = None
+                while count < position:
+                    count += 1
+                    prev = current
+                    current = current.next_node
+                prev.next_node = node
+                node.next_node = current
+
+                print("Success")
+                
+
+        else:
+            return print(f"Invalid insertion position. Threshold: [1 - {self.size()+ 1}]")
+
+
+
 
     def delete(self , node):
         """
@@ -123,7 +163,8 @@ n1.next_node = n2
 n2.next_node = n3
 n3.next_node = n4
 # print(l.size())
-
+n5 = Node(45)
+l.insert(n5, 5)
 # l.delete(n4)
 # print(l.size())
 # print(l.head)
